@@ -9,11 +9,11 @@ import (
 )
 
 const (
-	// ELF_DELIM is the delimiter between elves, each seperated by two new lines
-	ELF_DELIM = "\n\n"
+	// elfDelim is the delimiter between elves, each seperated by two new lines
+	elfDelim = "\n\n"
 
-	// CAL_DELIM is the delimiter between the calories packs on each elf
-	CALORIE_DELIM = "\n"
+	// calorieDelim is the delimiter between the calories packs on each elf
+	calorieDelim = "\n"
 )
 
 var (
@@ -64,6 +64,7 @@ func printResultB() {
 	log.Printf("The three elves with the most total calories have: %d", cals)
 }
 
+// sortElves in ascending order by total calories
 func sortElves() {
 	// sort the elves by total calories
 	sort.Slice(elves, func(i, j int) bool {
@@ -71,6 +72,7 @@ func sortElves() {
 	})
 }
 
+// prepareArrayofElves prepares the elves array, reading from input
 func prepareArrayofElves() {
 	// Prepare the input data
 	input = strings.TrimRight(input, "\n")
@@ -79,9 +81,9 @@ func prepareArrayofElves() {
 	}
 
 	// parse the input
-	for _, elfData := range strings.Split(input, ELF_DELIM) {
+	for _, elfData := range strings.Split(input, elfDelim) {
 		var elf Elf
-		for _, cals := range strings.Split(elfData, CALORIE_DELIM) {
+		for _, cals := range strings.Split(elfData, calorieDelim) {
 			calsInt, err := strconv.Atoi(cals)
 			if err != nil {
 				log.Fatalf("Error: %v", err)
