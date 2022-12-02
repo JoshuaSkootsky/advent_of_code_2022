@@ -77,7 +77,7 @@ func prepareArrayofElves() {
 	// Prepare the input data
 	input = strings.TrimRight(input, "\n")
 	if len(input) == 0 {
-		log.Fatal("Input file for Day 1 A is empty")
+		log.Fatal("Input file for Day 1 is empty")
 	}
 
 	// parse the input
