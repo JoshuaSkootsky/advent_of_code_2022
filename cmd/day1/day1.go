@@ -43,11 +43,25 @@ func main() {
 	prepareArrayofElves()
 	sortElves()
 	printResult()
+	printResultB()
 }
 
 func printResult() {
 	// Assume the elves are sorted by total calories
 	log.Print("The elf with the most total calories has: ", elves[len(elves)-1].TotalCals)
+}
+
+// print the three elves with the most calories
+func printResultB() {
+	// Assume the elves are sorted by total calories, get the last three
+	topElves := elves[len(elves)-3:]
+
+	cals := 0
+	for _, elf := range topElves {
+		cals += elf.TotalCals
+	}
+
+	log.Printf("The three elves with the most total calories have: %d", cals)
 }
 
 func sortElves() {
