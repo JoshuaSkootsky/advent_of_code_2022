@@ -20,8 +20,11 @@ var (
 
 func main() {
 	prepareInput()
-	priority := calculatePriority()
+	priority := calculatePriorityOne()
 	log.Printf("The priority is %d", priority)
+	// Part 2
+	priority = calculatePriorityTwo()
+	log.Printf("For part two, the priority is %d", priority)
 }
 
 // prepareInput prepares the input for processing
@@ -44,19 +47,24 @@ func letterValue(letter rune) int {
 }
 
 // find the doubled letter in two strings
-func findDoubledLetter(firstHalf string, secondHalf string) rune {
-	for _, letter := range firstHalf {
-		for _, letter2 := range secondHalf {
-			if letter == letter2 {
-				return letter
-			}
+func findDoubledLetter(inputA string, inputB string) rune {
+	// seen is a map of seen characters
+	seen := make(map[rune]bool)
+
+	for _, letter := range inputA {
+		seen[letter] = true
+	}
+
+	for _, letter := range inputB {
+		if seen[letter] {
+			return letter
 		}
 	}
 	return 0
 }
 
-// calculatePriority
-func calculatePriority() int {
+// calculatePriorityOne
+func calculatePriorityOne() int {
 	priority := 0
 	packs := strings.Split(input, packDelimiter)
 	for _, pack := range packs {
@@ -70,4 +78,42 @@ func calculatePriority() int {
 	}
 
 	return priority
+}
+
+// calculatePriorityTwo calculates the priority of the item that is common to three packs
+func calculatePriorityTwo() int {
+
+	rucksacks := strings.Split(input, packDelimiter)
+	priority := 0
+
+	for i := 0; i < len(rucksacks); i += 3 {
+		firstRuck := rucksacks[i]
+		secondRuck := rucksacks[i+1]
+		thirdRuck := rucksacks[i+2]
+
+		commonLetter := findCommonLetterFromThree(firstRuck, secondRuck, thirdRuck)
+		priority += letterValue(commonLetter)
+	}
+
+	return priority
+}
+
+func findCommonLetterFromThree(first string, second string, third string) rune {
+	seenOne := make(map[rune]bool)
+	for _, letter := range first {
+		seenOne[letter] = true
+	}
+
+	seenTwo := make(map[rune]bool)
+	for _, l2 := range second {
+		seenTwo[l2] = true
+	}
+
+	for _, l3 := range third {
+		if seenOne[l3] && seenTwo[l3] {
+			return l3
+		}
+	}
+
+	return 0
 }
