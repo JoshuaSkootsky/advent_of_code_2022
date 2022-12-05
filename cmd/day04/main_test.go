@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRoundScoreB(t *testing.T) {
+func TestOverlap(t *testing.T) {
 
 	tests := []struct {
 		description string
@@ -81,4 +81,34 @@ func TestRoundScoreB(t *testing.T) {
 		})
 	}
 
+}
+
+func TestPartialOverlap(t *testing.T) {
+	tests := []struct {
+		description string
+		elves       string
+		expected    bool
+	}{
+		{
+			description: "Elves overlap but not completely",
+			elves:       "1-3,2-4",
+			expected:    true,
+		},
+		{
+			description: "Elves do not overlap",
+			elves:       "2-4,6-8",
+			expected:    false,
+		},
+		{
+			description: "Elves do  overlap",
+			elves:       "2-8,6-7",
+			expected:    true,
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.description, func(t *testing.T) {
+			assert.Equal(t, tc.expected, doesPairPartial(tc.elves))
+		})
+	}
 }

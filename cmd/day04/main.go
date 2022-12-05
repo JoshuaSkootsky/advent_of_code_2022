@@ -27,15 +27,20 @@ func main() {
 	}
 
 	count := 0
+	countPartial := 0
 
 	for _, pair := range strings.Split(input, pairDelimiter) {
 		pairOverlaps := doesPairOverlap(pair)
 		if pairOverlaps {
 			count++
 		}
+		if doesPairPartial(pair) {
+			countPartial++
+		}
 	}
 
 	log.Print("The number of pairs that overlap is: ", count, " solving part A")
+	log.Print("The number of pairs that partially overlap is: ", countPartial, " solving part B")
 }
 
 // doesPairOverlap returns true if the pair overlaps
@@ -59,5 +64,22 @@ func doesPairOverlap(pair string) bool {
 		return true
 	}
 
+	return false
+}
+
+func doesPairPartial(pair string) bool {
+	elves := strings.Split(pair, ",")
+	elfA := strings.Split(elves[0], "-")
+	elfB := strings.Split(elves[1], "-")
+
+	// very important to convert to int - comparisons of the string values of numbers will not work
+	s1, _ := strconv.Atoi(elfA[0])
+	e1, _ := strconv.Atoi(elfA[1])
+	s2, _ := strconv.Atoi(elfB[0])
+	e2, _ := strconv.Atoi(elfB[1])
+
+	if (s1 >= s2 && s1 <= e2) || (s1 <= s2 && e1 >= s2) {
+		return true
+	}
 	return false
 }
