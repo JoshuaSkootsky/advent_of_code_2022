@@ -2,6 +2,7 @@ DAY_1=cmd/day1/day1.go
 DAY_2=cmd/day2/day2.go
 DAY_03=cmd/day03/main.go
 DAY_04=cmd/day04/main.go
+DAY_05=cmd/day05/main.go
 
 day1:
 	go run $(DAY_1)
@@ -18,6 +19,9 @@ day03:
 
 day04:
 	go run $(DAY_04)
+
+day05:
+	go run $(DAY_05)
 
 test:
 	go test ./...
