@@ -8,6 +8,9 @@ import (
 const (
 	// windowSize4 is the size of the window to check for unique characters
 	windowSize4 = 4
+
+	// windowSize14 is the size of the window to check for unique characters in a message
+	windowSize14 = 14
 )
 
 var (
@@ -43,6 +46,7 @@ func isSeqUnique(seq string) bool {
 func main() {
 
 	partA := firstMarkerIndex(input, windowSize4)
-
+	partB := firstMarkerIndex(input, windowSize14)
 	log.Print("The first marker index is: ", partA, " solving part A")
+	log.Print("The first marker index is: ", partB, " solving part B")
 }
